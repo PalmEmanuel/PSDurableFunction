@@ -1,8 +1,9 @@
 param($Context)
 
 $Tomorrow = $Context.CurrentUtcDateTime.AddDays(1)
+$ExpiryTime = $Context.Input.ExpiryTime
 
-for ($i = 0; $i -lt 100; $i++) {
+while ($Tomorrow -lt $ExpiryTime) {
 
     $WeatherData = Invoke-ActivityFunction -FunctionName 'PollWeather' -Input $Tomorrow
 
@@ -10,8 +11,9 @@ for ($i = 0; $i -lt 100; $i++) {
         break
     }
 
-    Start-DurableTimer -Duration ([timespan]::FromDays(1))
+    Start-DurableTimer -Duration (New-TimeSpan -Days 1)
 }
 
-# Here we could send an email or another type of notification
-# Invoke-ActivityFunction -FunctionName 'Notify'
+if ($Tomorrow -lt $ExpiryTime) {
+    Invoke-ActivityFunction -FunctionName 'Notify'
+}
