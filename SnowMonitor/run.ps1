@@ -1,9 +1,11 @@
 param($Context)
 
 $Tomorrow = $Context.CurrentUtcDateTime.AddDays(1)
-$ExpiryTime = $Context.Input.ExpiryTime
+$ExpiryDate = $Context.Input.ExpiryDate
 
-while ($Tomorrow -lt $ExpiryTime) {
+$Context.Input.ExpiryDate.GetType()
+
+while ($Tomorrow -lt $ExpiryDate) {
 
     $WeatherData = Invoke-ActivityFunction -FunctionName 'PollWeather' -Input $Tomorrow
 
@@ -14,6 +16,6 @@ while ($Tomorrow -lt $ExpiryTime) {
     Start-DurableTimer -Duration (New-TimeSpan -Days 1)
 }
 
-if ($Tomorrow -lt $ExpiryTime) {
+if ($Tomorrow -lt $ExpiryDate) {
     Invoke-ActivityFunction -FunctionName 'Notify'
 }
