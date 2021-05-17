@@ -3,8 +3,6 @@ param($Context)
 $Tomorrow = $Context.CurrentUtcDateTime.AddDays(1)
 $ExpiryDate = $Context.Input.ExpiryDate
 
-$Context.Input.ExpiryDate.GetType()
-
 while ($Tomorrow -lt $ExpiryDate) {
 
     $WeatherData = Invoke-ActivityFunction -FunctionName 'PollWeather' -Input $Tomorrow
