@@ -1,6 +1,6 @@
 # Azure Durable Functions in PowerShell
 
-This is an example project connected to the [blog post on PipeHow about Azure Durable Functions in PowerShell](https://www.pipehow.tech/new-durableazurefunction/).
+This is an example project connected to the [blog post on PipeHow about Azure Durable Functions in PowerShell](https://www.pipe.how/new-durableazurefunction/).
 
 ## Application Patterns
 
